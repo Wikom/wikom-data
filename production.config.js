@@ -40,7 +40,7 @@ module.exports = {
         })
     ],
     externals: {
-        "find-in-object": "find-in-object.git",
+        "find-in-object": "find-in-object",
         "prop-types": "prop-types",
         "react": "react",
         "react-dom": "react-dom",
