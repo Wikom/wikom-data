@@ -1,0 +1,47 @@
+{
+  "name": "wikom-data",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "module": "src/index.js",
+  "repository": "git@github.com:Wikom/wikom-data.git",
+  "author": "Rouven Diener",
+  "license": "MIT",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "find-in-object": "https://github.com/Wikom/find-in-object.git",
+    "react-loading": "https://github.com/Wikom/react-loading.git",
+    "react-symbol": "https://github.com/Wikom/react-symbol.git",
+    "superagent": "^3.5.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "prop-types": "^15.5.7",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.2",
+    "react-router-redux": "^5.0.0-alpha.4",
+    "redux": "^3.6.0",
+    "webpack": "^1.14.0"
+  },
+  "scripts": {
+    "start": "webpack -w",
+    "develop": "webpack",
+    "production": "webpack --config=production.config.js"
+  },
+  "babel": {
+    "presets": [
+      "babel-preset-es2015",
+      "babel-preset-react"
+    ],
+    "plugins": [
+      "transform-object-rest-spread"
+    ]
+  }
+}

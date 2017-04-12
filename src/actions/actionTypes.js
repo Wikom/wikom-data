@@ -1,0 +1,19 @@
+/**
+ * Created by rouven on 15.03.17.
+ */
+
+const PREFIX = '@@wikom-data/';
+
+export const LOAD_DATA_PENDING = PREFIX + 'LOAD_DATA_PENDING';
+export const LOAD_DATA_SUCCESS = PREFIX + 'LOAD_DATA_SUCCESS';
+export const LOAD_DATA_FAILURE = PREFIX + 'LOAD_DATA_FAILURE';
+export const LOAD_DATA_CANCEL = PREFIX + 'LOAD_DATA_CANCEL';
+export const LOAD_DATA_PROGRESS = PREFIX + 'LOAD_DATA_PROGRESS';
+
+export const CLEAR_DATA = PREFIX + 'CLEAR_DATA';
+export const REFRESH_DATA = PREFIX + 'REFRESH_DATA';
+
+export const SET_PAGINATION = PREFIX + 'SET_PAGINATION';
+export const CLEAR_PAGINATION = PREFIX + 'CLEAR_PAGINATION';
+
+export const SET_USER = PREFIX + 'SET_USER';
