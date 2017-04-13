@@ -17,6 +17,7 @@
     "superagent": "^3.5.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
@@ -33,7 +34,8 @@
   "scripts": {
     "start": "webpack -w",
     "develop": "webpack",
-    "production": "webpack --config=production.config.js"
+    "production": "webpack --config=production.config.js",
+    "build": "babel src --out-dir lib"
   },
   "babel": {
     "presets": [
