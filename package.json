@@ -1,6 +1,6 @@
 {
   "name": "wikom-data",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "lib/index.js",
   "module": "src/index.js",
   "repository": "git@github.com:Wikom/wikom-data.git",
@@ -8,7 +8,8 @@
   "license": "MIT",
   "files": [
     "lib",
-    "src"
+    "src",
+    "dist"
   ],
   "dependencies": {
     "find-in-object": "https://github.com/Wikom/find-in-object.git",
@@ -23,19 +24,20 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
+    "webpack": "^1.14.0"
+  },
+  "peerDependencies": {
     "prop-types": "^15.5.7",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.2",
     "react-router-redux": "^5.0.0-alpha.4",
-    "redux": "^3.6.0",
-    "webpack": "^1.14.0"
+    "redux": "^3.6.0"
   },
   "scripts": {
-    "start": "webpack -w",
-    "develop": "webpack",
-    "production": "webpack --config=production.config.js",
-    "build": "babel src --out-dir lib"
+    "start": "npm run babel && npm run webpack",
+    "webpack": "webpack --config=production.config.js",
+    "babel": "babel src --out-dir lib"
   },
   "babel": {
     "presets": [
