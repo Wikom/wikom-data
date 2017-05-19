@@ -42,16 +42,53 @@ class DataProvider extends Component {
 
 }
 
+const mapChildren = function (Child, state, dataProp, isLoadingProp, name, rest) {
+    let storeData = state.data && state.data[name] || null;
+    let data = Child.props.hasOwnProperty(dataProp) ? Child.props[dataProp] : false;
+    const overwrite = Child.props.hasOwnProperty('overwriteInitial') && Child.props.overwriteInitial;
+    if (data) {
+        switch (typeof  data) {
+            case "object":
+                if (!Array.isArray(data)) {
+                    if (!Array.isArray(storeData)) {
+                        if (overwrite) {
+                            data = {...data, ...storeData}
+                        } else {
+                            data = {...storeData, ...data};
+                        }
+                    } else {
+                        if (overwrite) {
+                            data = storeData;
+                        }
+                    }
+                } else {
+                    if (Array.isArray(data) && Array.isArray(storeData)) {
+                        data = data.concat(storeData);
+                    }
+                }
+                break;
+            default:
+                if (overwrite) {
+                    data = storeData;
+                }
+                break;
+        }
+    } else {
+        data = storeData;
+    }
+    return React.cloneElement(Child, {
+        [isLoadingProp]: !state.queries[name] || state.queries[name].isPending === true,
+        [dataProp]: data,
+        pagination: state.data && state.data.pagination && state.data.pagination[name] || null,
+        ...rest
+    });
+}
+
 const mapStateToProps = (state, {children, name, url, force, dataProp, isLoadingProp, refresh, ...rest}) => ({
     isLoading: !state.queries[name] || state.queries[name].isPending === true,
     refresh: refresh || (state.queries[name] && state.queries[name].isQueued === true),
     force: force || !state.queries[name] || state.queries[name].isComplete === false,
-    children: React.Children.map(children, Child => React.cloneElement(Child, {
-        [isLoadingProp]: !state.queries[name] || state.queries[name].isPending === true,
-        [dataProp]: state.data && state.data[name] || null,
-        pagination: state.data && state.data.pagination && state.data.pagination[name] || null,
-        ...rest
-    }))
+    children: React.Children.map(children, Child => mapChildren(Child, state, dataProp, isLoadingProp, name, rest))
 });
 
 const mapDispatchToProps = dispatch => ({
