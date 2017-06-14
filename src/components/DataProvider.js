@@ -36,7 +36,7 @@ class DataProvider extends Component {
 
     render() {
         return this.props.onlyLoaded && this.props.isLoading
-            ? <Loading/>
+            ? <span>{this.props.loading}</span>
             : <span>{this.props.children}</span>
     }
 
@@ -64,6 +64,7 @@ const DataProviderContainer = connect(mapStateToProps, mapDispatchToProps)(DataP
 DataProviderContainer.defaultProps = {
     dataProp: 'data',
     isLoadingProp: 'isLoading',
+    loading: (<Loading/>),
     force: false,
     refresh: false,
     onlyLoaded: false
