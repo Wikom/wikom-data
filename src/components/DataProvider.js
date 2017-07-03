@@ -42,7 +42,7 @@ class DataProvider extends Component {
 
 }
 
-const mapChildren = function (Child, state, dataProp, isLoadingProp, name, rest) {
+const mapChildren = function (Child, state, dataProp, isLoadingProp, name, dataMap, rest) {
     let storeData = state.data && state.data[name] || null;
     let data = Child.props.hasOwnProperty(dataProp) ? Child.props[dataProp] : false;
     const overwrite = Child.props.hasOwnProperty('overwriteInitial') && Child.props.overwriteInitial;
@@ -76,6 +76,11 @@ const mapChildren = function (Child, state, dataProp, isLoadingProp, name, rest)
     } else {
         data = storeData;
     }
+
+    if (typeof dataMap === 'function' && typeof data === 'object' && data instanceof Array) {
+        data = data.map(dataMap);
+    }
+
     return React.cloneElement(Child, {
         [isLoadingProp]: !state.queries[name] || state.queries[name].isPending === true,
         [dataProp]: data,
@@ -84,11 +89,11 @@ const mapChildren = function (Child, state, dataProp, isLoadingProp, name, rest)
     });
 }
 
-const mapStateToProps = (state, {children, name, url, force, dataProp, isLoadingProp, refresh, ...rest}) => ({
+const mapStateToProps = (state, {children, name, url, force, dataProp, isLoadingProp, refresh, dataMap, ...rest}) => ({
     isLoading: !state.queries[name] || state.queries[name].isPending === true,
     refresh: refresh || (state.queries[name] && state.queries[name].isQueued === true),
     force: force || !state.queries[name] || state.queries[name].isComplete === false,
-    children: React.Children.map(children, Child => mapChildren(Child, state, dataProp, isLoadingProp, name, rest))
+    children: React.Children.map(children, Child => mapChildren(Child, state, dataProp, isLoadingProp, name, dataMap, rest))
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -104,7 +109,8 @@ DataProviderContainer.defaultProps = {
     loading: (<Loading/>),
     force: false,
     refresh: false,
-    onlyLoaded: false
+    onlyLoaded: false,
+    dataMap: null
 };
 
 DataProviderContainer.propTypes = {
@@ -115,7 +121,8 @@ DataProviderContainer.propTypes = {
     isLoadingProp: PropTypes.string,
     force: PropTypes.bool,
     refresh: PropTypes.bool,
-    onlyLoaded: PropTypes.bool
+    onlyLoaded: PropTypes.bool,
+    dataMap: PropTypes.func
 };
 
 export default DataProviderContainer;
