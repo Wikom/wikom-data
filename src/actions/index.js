@@ -4,6 +4,7 @@
 
 import request from 'superagent'
 import findInObject from 'find-in-object'
+import {saveAs} from 'file-saver'
 import * as types from './actionTypes'
 
 export const setUser = ({user}) => ({
@@ -131,6 +132,58 @@ export const loadData = ({name, url}) => (dispatch, getState) => {
         }).catch(error => {
             dispatch(loadDataFailure({name, url, error}));
             dispatch(clearPagination({name}));
+        });
+
+    promise.cancel = () => {
+        req.abort();
+        dispatch(loadDataCancel({name, url}));
+    };
+
+    return promise;
+};
+
+export const download = ({name, url}) => dispatch => {
+    dispatch(loadDataPending({name, url}));
+
+    const getFilename = (header) => {
+        const disposition = header['content-disposition'];
+
+        if (disposition && disposition.indexOf('attachment') !== -1) {
+            const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+            const matches = filenameRegex.exec(disposition);
+            if (matches && matches[1]) {
+                return matches[1].replace(/['"]/g, '');
+            }
+        }
+
+        return null;
+    };
+
+    const req = get({url});
+    const promise = req
+        .responseType('blob')
+        .on('progress', event => {
+            /* the event is:
+             {
+             direction: "upload" or "download"
+             percent: 0 to 100 // may be missing if file size is unknown
+             total: // total file size, may be missing
+             loaded: // bytes downloaded or uploaded so far
+             } */
+            dispatch(loadDataProgress({name, url, percent: event.percent || 100}));
+        })
+        .then(response => {
+
+            promise.cancel = () => {console.log('promise resolved - cancel disabled...')};
+
+            if (response.ok && response.body) {
+                const filename = getFilename(response.header) || name;
+
+                saveAs(response.body, filename);
+                dispatch(loadDataSuccess({name, url, data: null}));
+            }
+        }).catch(error => {
+            dispatch(loadDataFailure({name, url, error}));
         });
 
     promise.cancel = () => {

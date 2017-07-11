@@ -28,6 +28,7 @@ module.exports = {
     debug: true,
     devtool: 'source-map',
     externals: {
+        "file-saver": "file-saver",
         "find-in-object": "find-in-object",
         "prop-types": "prop-types",
         "react": "react",
