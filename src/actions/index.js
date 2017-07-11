@@ -193,3 +193,15 @@ export const download = ({name, url}) => dispatch => {
 
     return promise;
 };
+
+export const submit = ({url, data = {}, primaryKey = 'id'}) => () => {
+    const req = (data.hasOwnProperty(primaryKey))
+        ? put({url: url + '/' + findInObject(primaryKey, data), data})
+        : post({url, data});
+
+    const promise = req;
+
+    promise.cancel = () => req.abort();
+
+    return promise;
+};
