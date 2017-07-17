@@ -114,7 +114,9 @@ export const loadData = ({name, url}) => (dispatch, getState) => {
         })
         .then(response => {
 
-            promise.cancel = () => {console.log('promise resolved - cancel disabled...')};
+            promise.cancel = () => {
+                console.log('promise resolved - cancel disabled...')
+            };
 
             if (response.ok && response.body) {
                 dispatch(loadDataSuccess({name, url, data: response.body.data}));
@@ -174,7 +176,9 @@ export const download = ({name, url}) => dispatch => {
         })
         .then(response => {
 
-            promise.cancel = () => {console.log('promise resolved - cancel disabled...')};
+            promise.cancel = () => {
+                console.log('promise resolved - cancel disabled...')
+            };
 
             if (response.ok && response.body) {
                 const filename = getFilename(response.header) || name;
@@ -215,11 +219,11 @@ const executeDelete = ({url}) => () => {
     return promise;
 };
 
-export const directDelete = ({url, refresh}) => dispatch =>
+export const directDelete = ({url, refresh = null}) => dispatch =>
     dispatch(executeDelete({url}))
-        .then(result => (refresh) ? dispatch(refreshData({name: refresh})) : Promise.resolve('success'))
+        .then(result => refresh !== null ? dispatch(refreshData({name: refresh})) : Promise.resolve('success'))
         .catch(error => Promise.reject('errored'));
 
 export const confirmAndDelete =
-    ({url, refresh, message = 'Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?'}) =>
-        () => confirm(message) ? directDelete({url, refresh}) : Promise.resolve('canceled');
+    ({url, refresh = null, message = 'Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?'}) =>
+        dispatch => (confirm(message)) ? dispatch(directDelete({url, refresh})) : Promise.resolve('canceled');
