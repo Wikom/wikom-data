@@ -12,7 +12,7 @@ import queriesReducer from './reducers/queriesReducer'
 import errorReducer from './reducers/errorReducer'
 import userReducer from './reducers/userReducer'
 
-const {loadData, download, submit, setUser, configureRequest, clearData, refreshData} = actions;
+const {loadData, download, submit, setUser, configureRequest, clearData, refreshData, confirmAndDelete, directDelete} = actions;
 
 export default DataProvider;
 export {
@@ -31,5 +31,7 @@ export {
     setUser,
     configureRequest,
     clearData,
-    refreshData
+    refreshData,
+    confirmAndDelete,
+    directDelete
 };

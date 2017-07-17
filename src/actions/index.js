@@ -205,3 +205,21 @@ export const submit = ({url, data = {}, primaryKey = 'id'}) => () => {
 
     return promise;
 };
+
+const executeDelete = ({url}) => () => {
+    const req = del({url});
+    const promise = req;
+
+    promise.cancel = () => req.abort();
+
+    return promise;
+};
+
+export const directDelete = ({url, refresh}) => dispatch =>
+    dispatch(executeDelete({url}))
+        .then(result => (refresh) ? dispatch(refreshData({name: refresh})) : Promise.resolve('success'))
+        .catch(error => Promise.reject('errored'));
+
+export const confirmAndDelete =
+    ({url, refresh, message = 'Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?'}) =>
+        () => confirm(message) ? directDelete({url, refresh}) : Promise.resolve('canceled');
