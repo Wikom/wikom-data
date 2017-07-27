@@ -120,6 +120,9 @@ var dataHasChanged = true;
     </Kombi>
 </DataProvider>
 ```
+
+## 3.6 The "onlyLoaded" property
+
 This property is used to hide the children of the dataprovider as long as the data is not loaded.  Insteadit will show the "Loading" class.  The "isLoading" property is a internal property that is used with this."isLoading" should not be set from the outside.Listing 7 shows an example.
 
 ##### Listing 7: "onlyLoaded" property
