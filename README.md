@@ -1,11 +1,11 @@
 # wikom-data
 
-#1. Introduction
+# 1. Introduction
 
-##1.1 What is wikom-data?
+## 1.1 What is wikom-data?
 As  the  name  suggests,  wikom-data  is  a  library  that  is  all  about  loading  data  from  an  API  endpoint.   Ittherefore provides the user with a React-Component called DataProvider, that is capable of loading datafrom an url and passing it to its children via props.  It is used in combination with Grids or Forms, thatare nested inside of the DataProvider component.  See Section 2 for some basic use cases.  It is capable ofhandling a lot of common needs, e.g.  the loading state.  The main conguration for the DataProvider are the"dataMap" and "dataProp" properties, which often are combined.  For more detail on each of the passableprops see Section 3.  For a more detailed code documentation see Section 4.
 
-##1.2 Installation
+## 1.2 Installation
 Add wikom-data to your js project with yarn:
 
 ```javascript
@@ -25,10 +25,10 @@ You can also add the standalone build directly to your page. Download dist/index
 ```
 
 Remember to include all dependencies as well.
-#2 Basic usage
+# 2 Basic usage
 
 To  load  data  into  a  grid  you  only  need  to  nest  the  grid  within  a  DataProvider  tag  and  set  the  neededproperties of the Dataprovider.  You need to set the url and also you need to name the dataprovider, butyou can just give it the same name as the grid itself.  The url obviously tells the DataProvider where to getthe data from, while the name tells it where to store the data in the store.  You might also want to look atthe ConnectedGrid class provided in wikom-grid for this use case.  See Listing 1 for a basic example.
-#####Listing 1: Basic DataProvider and Grid usage
+##### Listing 1: Basic DataProvider and Grid usage
 ```html
 <DataProvider name="gridname" url="/api/url">
     <Grid name="gridname" [...]>
@@ -42,7 +42,7 @@ This code generates the following structure in the store, where gridname[i] repr
 
 There is already a special class for this common use case, which you might want to use.  See Listing 2 for anexample.  Notice that the url property is called "baseUrl" in the connectedGrid, and the name property isgrid, which needs to be the same name as the name of the grid.
 
-#####Listing 2: The "ConnectedGrid"
+##### Listing 2: The "ConnectedGrid"
 ```html
 <ConnectedGrid grid="gridname" baseUrl="/api/url">
     <Grid name="gridname">
@@ -56,7 +56,7 @@ This generates a similar structure in the store, where the data eld holds the o
 
 The DataProvider can be used the same way to load values from an endpoint into a form.  See Listing 3 foran example.
 
-#####Listing 3: Basic DataProvider and Form usage
+##### Listing 3: Basic DataProvider and Form usage
 ```html
 <DataProvider name="formname" baseUrl={apiEndpoints.task}>
     <Form name="formname">
@@ -64,15 +64,15 @@ The DataProvider can be used the same way to load values from an endpoint into a
 </DataProvider>
 ```
 
-#3 passable properties
-##3.1 The "name" property
+# 3 passable properties
+## 3.1 The "name" property
 Always needs to be set.  Determines where to store and nd the data in the store.  See Section 2 for examples.
-##3.2 The "url" property
+## 3.2 The "url" property
 Always needs to be set.  Determines where to load the data from (API url).  See Section 2 for examples.
-##3.3 The "dataProp" property
+## 3.3 The "dataProp" property
 If your child components expects the data to be passed in a special property (other than the default dataprop) you can set the dataProp property of the Dataprovider to point to that property.Listing 4 shows an example.
 
-#####Listing 4: "dataProp" property
+##### Listing 4: "dataProp" property
 ```html
 <DataProvider name="gridname" url="/api/url" dataProp="options">
     <Kombi [...]>
@@ -80,10 +80,10 @@ If your child components expects the data to be passed in a special property (ot
     </Kombi>
 </DataProvider>
 ```
-##3.4 The "dataMap" property
+## 3.4 The "dataMap" property
 If you need renaming of certain elds in your data you can pass a map function to the dataMap property.You might want to look at the javascript own Array.map() function if you are not familiar with it.Listing 5 shows an example.
 
-#####Listing 5: "dataMap" property
+##### Listing 5: "dataMap" property
 ```html
 <DataProvider name="gridname" 
               url="/api/url" 
@@ -99,10 +99,10 @@ If you need renaming of certain elds in your data you can pass a map function t
     </Kombi>
 </DataProvider>
 ```
-##3.5 The "force" property
+## 3.5 The "force" property
 This  property  forces  the  DataProvider  to  reload  data  on  every  rerender,  if  set  to  true.   This  should  beavoided, if needed to use, use it with a function that only returns true under certain conditions.Listing 6 shows an example.
 
-#####Listing 6: "force" property
+##### Listing 6: "force" property
 ```html
 var dataHasChanged = true;
 [...]
@@ -122,7 +122,7 @@ var dataHasChanged = true;
 ```
 This property is used to hide the children of the dataprovider as long as the data is not loaded.  Insteadit will show the "Loading" class.  The "isLoading" property is a internal property that is used with this."isLoading" should not be set from the outside.Listing 7 shows an example.
 
-#####Listing 7: "onlyLoaded" property
+##### Listing 7: "onlyLoaded" property
 ```html
 <DataProvider 
     name="task" 
@@ -135,7 +135,7 @@ This property is used to hide the children of the dataprovider as long as the da
 </DataProvider>;
 ```
 
-#4 Code Documentation
+# 4 Code Documentation
 ## Modules
 
 <dl>
