@@ -9,6 +9,11 @@ import Loading from 'react-loading'
 
 import {loadData, clearData} from '../actions'
 
+/**
+ * This is the main component.  It is responsible for loading the data into its children (passing it via props),also it handles the loading bar.
+ * It is not responsible for loading the data into the state, nor is it responsiblefor updating the data in the state, although it might call the
+ * loadData action responsible for loading data.
+ */
 class DataProvider extends Component {
 
     componentDidMount() {

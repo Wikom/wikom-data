@@ -2,11 +2,18 @@
  * Created by rouven on 15.03.17.
  */
 
+/**
+ * @module
+ */
+
 import request from 'superagent'
 import findInObject from 'find-in-object'
 import {saveAs} from 'file-saver'
 import * as types from './actionTypes'
-
+/**
+ * Action to dispatch if the app user should change
+ * @param user {object} the new user
+ */
 export const setUser = ({user}) => ({
     type: types.SET_USER,
     user
@@ -16,8 +23,15 @@ export const setUser = ({user}) => ({
  * new API
  */
 
+/**
+ * @private
+ * @type {{}}
+ */
 const requestHeaders = {};
 
+/**
+ * @private
+ */
 export const configureRequest = () => (dispatch, getState) => {
     const token = findInObject('user.access_token', getState());
 
@@ -27,72 +41,153 @@ export const configureRequest = () => (dispatch, getState) => {
     }
 };
 
+/**
+ * @private
+ * @param method
+ * @param url
+ */
 export const baseRequest = ({method = 'GET', url}) => request(method, url).set(requestHeaders);
 
+/**
+ * @private
+ * @param url
+ */
 export const get = ({url}) => baseRequest({url});
 
+/**
+ * @private
+ * @param url
+ * @param data
+ */
 export const post = ({url, data}) => baseRequest({method: 'POST', url}).send(data);
 
+/**
+ * @private
+ * @param url
+ * @param data
+ */
 export const put = ({url, data}) => baseRequest({method: 'PUT', url}).send(data);
 
+/**
+ * @private
+ * @param url
+ */
 export const del = ({url}) => baseRequest({method: 'DELETE', url});
 
+/**
+ * @private
+ */
 export {types};
 
+/**
+ * Action to dispatch as soon as an ajax request has started and is not finished
+ * @param name {string} The name of the request (to determine where to store in store)
+ * @param url {string} The url for the request
+ */
 export const loadDataPending = ({name, url}) => ({
     type: types.LOAD_DATA_PENDING,
     name,
     url
 });
 
+/**
+ * Action to dispatch as soon as an api request finishes successfully
+ * @param name {string} The name of the request (to determine where to store in store)
+ * @param url {string} The url for the request
+ * @param data {object} The data that was returned by the server
+ */
 export const loadDataSuccess = ({name, url, data}) => ({
     type: types.LOAD_DATA_SUCCESS,
     name,
     url,
     data
 });
-
+/**
+ * Action to dispatch as soon as an api request failes on serverside
+ * @param name {string} The name of the request (to determine where to store in store)
+ * @param url {string} The url for the request
+ * @param error {string} The error that was returned by the server
+ */
 export const loadDataFailure = ({name, url, error}) => ({
     type: types.LOAD_DATA_FAILURE,
     name,
     url,
     error
 });
-
+/**
+ * Action to dispatch as soon as an api request fails on clientside
+ * @param name {string} The name of the request
+ * @param url {string} The url of the request
+ */
 export const loadDataCancel = ({name, url}) => ({
     type: types.LOAD_DATA_CANCEL,
     name,
     url
 });
-
+/**
+ * Action to dispatch on progress message from server
+ * @param name {string} The name of the request
+ * @param url {string} the url of the request
+ * @param percent {float} the percentage of completion
+ */
 export const loadDataProgress = ({name, url, percent}) => ({
     type: types.LOAD_DATA_PROGRESS,
     name,
     url,
     percent
 });
-
+/**
+ * Action to dispatch if the "name" part of the store is to be cleared
+ * @param name {string} the name of the part of the store that is to be cleared
+ */
 export const clearData = ({name}) => ({
     type: types.CLEAR_DATA,
     name
 });
-
+/**
+ * Action to dispatch if the "name" part of the store is to be refreshed
+ * @param name {string} the name of the part of the store that is to be refreshed
+ */
 export const refreshData = ({name}) => ({
     type: types.REFRESH_DATA,
     name
 });
-
+/**
+ * Action to dispatch if the next request with "name" is to be paginated (or change in pagination)
+ * @param name {string} the name of the request
+ * @param data {object} the configuration of the pagination
+ * @example
+ {
+  pagination{
+     "tasks": {
+       "currentPage": 1,
+       "pageCount": 0,
+       "perPage": 20,
+       "totalCount": 0
+     }
+   }
+ }
+ */
 export const setPagination = ({name, data}) => ({
     type: types.SET_PAGINATION,
     name,
     data
 });
-
+/**
+ * Action to dispatch if the "next request with name"s pagination should be cleared
+ * @param name {string} the name of the request
+ */
 export const clearPagination = ({name}) => ({
     type: types.CLEAR_PAGINATION,
     name
 });
 
+/**
+ * Action to dispatch to load data from an url into the store
+ * @param name {string} the name where to store the data
+ * @param url {string} the url to send the request
+ * @return {Promise}
+ */
 export const loadData = ({name, url}) => (dispatch, getState) => {
     if (getState().queries.pending && getState().queries.pending.indexOf(url) !== -1) {
         return;
@@ -143,7 +238,12 @@ export const loadData = ({name, url}) => (dispatch, getState) => {
 
     return promise;
 };
-
+/**
+ * Action to start a file download with progress information
+ * @param name {string} the name of the request
+ * @param url {string} the url of the file to download
+ * @return {Promise}
+ */
 export const download = ({name, url}) => dispatch => {
     dispatch(loadDataPending({name, url}));
 
@@ -197,7 +297,13 @@ export const download = ({name, url}) => dispatch => {
 
     return promise;
 };
-
+/**
+ * Action to submit data to an endpoint. Sends a put or post request depending on wether the datas primaryKey attribute is set or not.
+ * @param url {string} the url to submit to
+ * @param data {object} the data to submit
+ * @param primaryKey {string} the primaryKey attributes name in the data, defaults to id
+ * @return {Promise}
+ */
 export const submit = ({url, data = {}, primaryKey = 'id'}) => () => {
     const req = (data.hasOwnProperty(primaryKey))
         ? put({url: url + '/' + findInObject(primaryKey, data), data})
@@ -209,7 +315,11 @@ export const submit = ({url, data = {}, primaryKey = 'id'}) => () => {
 
     return promise;
 };
-
+/**
+ * Sends an delete request to a server
+ * @param url {string} the url to send the request to
+ * @return {Promise}
+ */
 const executeDelete = ({url}) => () => {
     const req = del({url});
     const promise = req;
@@ -218,12 +328,22 @@ const executeDelete = ({url}) => () => {
 
     return promise;
 };
-
+/**
+ * Sends a direct delete request to an endpoint
+ * @param url {string} the url to send the delete to
+ * @param refresh {string} the name of the part of the store that should be refreshed afterwards
+ */
 export const directDelete = ({url, refresh = null}) => dispatch =>
     dispatch(executeDelete({url}))
         .then(result => refresh !== null ? dispatch(refreshData({name: refresh})) : Promise.resolve('success'))
         .catch(error => Promise.reject('errored'));
 
+/**
+ * Pops up an js-alert before deleting if confirmed
+ * @param url {string} the url to send the delete request
+ * @param refresh {string} the name of the part of the store that should be refreshed afterwards
+ * @param message {string} The message to be shown in the alert, defaults to 'Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?'
+ */
 export const confirmAndDelete =
     ({url, refresh = null, message = 'Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?'}) =>
         dispatch => (confirm(message)) ? dispatch(directDelete({url, refresh})) : Promise.resolve('canceled');
