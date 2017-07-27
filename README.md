@@ -1,5 +1,7 @@
 # wikom-data
+
 #1. Introduction
+
 ##1.1 What is wikom-data?
 As  the  name  suggests,  wikom-data  is  a  library  that  is  all  about  loading  data  from  an  API  endpoint.   Ittherefore provides the user with a React-Component called DataProvider, that is capable of loading datafrom an url and passing it to its children via props.  It is used in combination with Grids or Forms, thatare nested inside of the DataProvider component.  See Section 2 for some basic use cases.  It is capable ofhandling a lot of common needs, e.g.  the loading state.  The main conguration for the DataProvider are the"dataMap" and "dataProp" properties, which often are combined.  For more detail on each of the passableprops see Section 3.  For a more detailed code documentation see Section 4.
 
