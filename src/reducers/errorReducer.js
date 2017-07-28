@@ -17,9 +17,9 @@ import {LOCATION_CHANGE} from 'react-router-redux'
  * If LOAD_DATA_FAILURE, it concats an error to the store, which then gets displayed in the AppErrorComponent
  * If LOCATION_CHANGE, it emptys the current store.
  * @public
- * @param {array} state The current state
+ * @param {array | object} state The current state
  * @param {object} action The dispatched action
- * @returns {array} The new state after performing the action
+ * @returns {array | object} The new state after performing the action
  */
 const errorReducer = (state = [], action) => {
 

@@ -16,6 +16,8 @@ import * as types from '../actions/actionTypes'
  * It sets or unsets the data storing part in the store.  The name of the action determines that part in the store
  * @public
  * @param reducers {function(object, object)} additional reducers to be called after this
+ * @param {array | object} state The current state
+ * @param {object} action The dispatched action
  * @returns {object} the next state
  */
 const dataReducer = (reducers = null) => {

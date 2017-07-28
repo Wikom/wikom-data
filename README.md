@@ -3,7 +3,7 @@
 # 1. Introduction
 
 ## 1.1 What is wikom-data?
-As  the  name  suggests,  wikom-data  is  a  library  that  is  all  about  loading  data  from  an  API  endpoint.   Ittherefore provides the user with a React-Component called DataProvider, that is capable of loading datafrom an url and passing it to its children via props.  It is used in combination with Grids or Forms, thatare nested inside of the DataProvider component.  See Section 2 for some basic use cases.  It is capable ofhandling a lot of common needs, e.g.  the loading state.  The main conguration for the DataProvider are the"dataMap" and "dataProp" properties, which often are combined.  For more detail on each of the passableprops see Section 3.  For a more detailed code documentation see Section 4.
+As  the  name  suggests,  wikom-data  is  a  library  that  is  all  about  loading  data  from  an  API  endpoint.   Ittherefore provides the user with a React-Component called DataProvider, that is capable of loading datafrom an url and passing it to its children via props.  It is used in combination with Grids or Forms, thatare nested inside of the DataProvider component.  See Section 2 for some basic use cases.  It is capable ofhandling a lot of common needs, e.g.  the loading state.  The main conguration for the DataProvider are the"dataMap" and "dataProp" properties, which often are combined.  For more detail on each of the passable props see the part about the DataProvider in Section 3.
 
 ## 1.2 Installation
 Add wikom-data to your js project with yarn:
@@ -64,81 +64,7 @@ The DataProvider can be used the same way to load values from an endpoint into a
 </DataProvider>
 ```
 
-# 3 passable properties
-## 3.1 The "name" property
-Always needs to be set.  Determines where to store and nd the data in the store.  See Section 2 for examples.
-## 3.2 The "url" property
-Always needs to be set.  Determines where to load the data from (API url).  See Section 2 for examples.
-## 3.3 The "dataProp" property
-If your child components expects the data to be passed in a special property (other than the default dataprop) you can set the dataProp property of the Dataprovider to point to that property.Listing 4 shows an example.
-
-##### Listing 4: "dataProp" property
-```html
-<DataProvider name="gridname" url="/api/url" dataProp="options">
-    <Kombi [...]>
-        [...]
-    </Kombi>
-</DataProvider>
-```
-## 3.4 The "dataMap" property
-If you need renaming of certain elds in your data you can pass a map function to the dataMap property.You might want to look at the javascript own Array.map() function if you are not familiar with it.Listing 5 shows an example.
-
-##### Listing 5: "dataMap" property
-```html
-<DataProvider name="gridname" 
-              url="/api/url" 
-              dataProp="options" 
-              dataMap={
-                function callback(currentValue, index, array) {
-                    // Return elementfornew_array   
-                }
-              }
->
-    <Kombi [...]>
-        [...]
-    </Kombi>
-</DataProvider>
-```
-## 3.5 The "force" property
-This  property  forces  the  DataProvider  to  reload  data  on  every  rerender,  if  set  to  true.   This  should  beavoided, if needed to use, use it with a function that only returns true under certain conditions.Listing 6 shows an example.
-
-##### Listing 6: "force" property
-```html
-var dataHasChanged = true;
-[...]
-<DataProvider name="gridname" 
-              url="/api/url" 
-              dataProp="options"
-              force={
-                function callback(){ 
-                    return dataHasChanged; 
-                }
-              }
->
-    <Kombi [...]>
-    [...]
-    </Kombi>
-</DataProvider>
-```
-
-## 3.6 The "onlyLoaded" property
-
-This property is used to hide the children of the dataprovider as long as the data is not loaded.  Insteadit will show the "Loading" class.  The "isLoading" property is a internal property that is used with this."isLoading" should not be set from the outside.Listing 7 shows an example.
-
-##### Listing 7: "onlyLoaded" property
-```html
-<DataProvider 
-    name="task" 
-    url={apiEndpoints.task + ’/’ +id}
-    force={true}
-    dataProp="initialValues"
-    onlyLoaded={true}
->
-    <WrapperContainer formmode="edit"/>
-</DataProvider>;
-```
-
-# 4 Code Documentation
+# 3. Code Documentation
 ## Modules
 
 <dl>
@@ -158,7 +84,7 @@ This property is used to hide the children of the dataprovider as long as the da
 <dd></dd>
 </dl>
 
-## Classes
+## Components
 
 <dl>
 <dt><a href="#AppError">AppError</a></dt>
@@ -173,7 +99,7 @@ loadData action responsible for loading data.</p>
 
 <a name="module_actions/actionTypes"></a>
 
-## actions/actionTypes
+## actionTypes
 
 * [actions/actionTypes](#module_actions/actionTypes)
     * _static_
@@ -258,7 +184,9 @@ Prefix for all actions defined in this module
 **Kind**: inner constant of [<code>actions/actionTypes</code>](#module_actions/actionTypes)  
 <a name="module_actions/index"></a>
 
-## actions/index
+## actions
+
+All Actions described here only have one object as parameter. The parameters described here are the keys of this object.
 
 * [actions/index](#module_actions/index)
     * _static_
@@ -275,8 +203,8 @@ Prefix for all actions defined in this module
         * [.loadData](#module_actions/index.loadData) ⇒ <code>Promise</code>
         * [.download](#module_actions/index.download) ⇒ <code>Promise</code>
         * [.submit](#module_actions/index.submit) ⇒ <code>Promise</code>
-        * [.directDelete](#module_actions/index.directDelete)
-        * [.confirmAndDelete](#module_actions/index.confirmAndDelete)
+        * [.directDelete](#module_actions/index.directDelete) ⇒ <code>Promise</code>
+        * [.confirmAndDelete](#module_actions/index.confirmAndDelete) ⇒ <code>Promise</code>
     * _inner_
         * [~executeDelete(url)](#module_actions/index..executeDelete) ⇒ <code>Promise</code>
 
@@ -451,7 +379,7 @@ Action to submit data to an endpoint. Sends a put or post request depending on w
 
 <a name="module_actions/index.directDelete"></a>
 
-### actions/index.directDelete
+### actions/index.directDelete ⇒ <code>Promise</code>
 Sends a direct delete request to an endpoint
 
 **Kind**: static constant of [<code>actions/index</code>](#module_actions/index)  
@@ -463,7 +391,7 @@ Sends a direct delete request to an endpoint
 
 <a name="module_actions/index.confirmAndDelete"></a>
 
-### actions/index.confirmAndDelete
+### actions/index.confirmAndDelete ⇒ <code>Promise</code>
 Pops up an js-alert before deleting if confirmed
 
 **Kind**: static constant of [<code>actions/index</code>](#module_actions/index)  
@@ -509,7 +437,7 @@ Middleware that changes the href of the current window/tab if an 401 unauthorize
 ## reducers/dataReducer
 <a name="module_reducers/dataReducer..dataReducer"></a>
 
-### reducers/dataReducer~dataReducer(reducers) ⇒ <code>object</code>
+### reducers/dataReducer~dataReducer(reducers, state, action) ⇒ <code>object</code>
 The data reducer is the reducer that handles all data and pagination actions (except LOAD_DATA_FAILURE,which gets handled by the errorReducer).
 It sets or unsets the data storing part in the store.  The name of the action determines that part in the store
 
@@ -520,24 +448,26 @@ It sets or unsets the data storing part in the store.  The name of the action de
 | Param | Type | Description |
 | --- | --- | --- |
 | reducers | <code>function</code> | additional reducers to be called after this |
+| state | <code>array</code> \| <code>object</code> | The current state |
+| action | <code>object</code> | The dispatched action |
 
 <a name="module_reducers/errorReducer"></a>
 
 ## reducers/errorReducer
 <a name="module_reducers/errorReducer..errorReducer"></a>
 
-### reducers/errorReducer~errorReducer(state, action) ⇒ <code>array</code>
+### reducers/errorReducer~errorReducer(state, action) ⇒ <code>array</code> \| <code>object</code>
 Handles failure cases (LOAD_DATA_FAILURE and LOCATION_CHANGE).
 If LOAD_DATA_FAILURE, it concats an error to the store, which then gets displayed in the AppErrorComponent
 If LOCATION_CHANGE, it emptys the current store.
 
 **Kind**: inner method of [<code>reducers/errorReducer</code>](#module_reducers/errorReducer)  
-**Returns**: <code>array</code> - The new state after performing the action  
+**Returns**: <code>array</code> \| <code>object</code> - The new state after performing the action  
 **Access**: public  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| state | <code>array</code> | The current state |
+| state | <code>array</code> \| <code>object</code> | The current state |
 | action | <code>object</code> | The dispatched action |
 
 <a name="module_reducers/queriesReducer"></a>
@@ -590,16 +520,12 @@ Constructs an AppError UI widget, that shows errors stored in the store.
 | --- | --- | --- |
 | errors | <code>array</code> | the errors to be displayed |
 
-<a name="AppError"></a>
-
 <a name="DataProvider"></a>
 
 ## DataProvider
 This is the main component.  It is responsible for loading the data into its children (passing it via props),also it handles the loading bar.
 It is not responsible for loading the data into the state, nor is it responsiblefor updating the data in the state, although it might call the
 loadData action responsible for loading data.
-
-**Kind**: global class  
 
 **Example**  
 ```html
@@ -608,3 +534,79 @@ const Inner = ({data}) => <span>{data}</span>;
     <Inner/>
 </DataProvider>
 ```
+
+#### passable properties
+##### 3.1 The "name" property
+Always needs to be set.  Determines where to store and nd the data in the store.  See Section 2 for examples.
+##### 3.2 The "url" property
+Always needs to be set.  Determines where to load the data from (API url).  See Section 2 for examples.
+##### 3.3 The "dataProp" property
+If your child components expects the data to be passed in a special property (other than the default dataprop) you can set the dataProp property of the Dataprovider to point to that property.Listing 4 shows an example.
+
+###### Listing 4: "dataProp" property
+```html
+<DataProvider name="gridname" url="/api/url" dataProp="options">
+    <Kombi [...]>
+        [...]
+    </Kombi>
+</DataProvider>
+```
+##### 3.4 The "dataMap" property
+If you need renaming of certain elds in your data you can pass a map function to the dataMap property.You might want to look at the javascript own Array.map() function if you are not familiar with it.Listing 5 shows an example.
+
+###### Listing 5: "dataMap" property
+```html
+<DataProvider name="gridname" 
+              url="/api/url" 
+              dataProp="options" 
+              dataMap={
+                function callback(currentValue, index, array) {
+                    // Return elementfornew_array   
+                }
+              }
+>
+    <Kombi [...]>
+        [...]
+    </Kombi>
+</DataProvider>
+```
+##### 3.5 The "force" property
+This  property  forces  the  DataProvider  to  reload  data  on  every  rerender,  if  set  to  true.   This  should  beavoided, if needed to use, use it with a function that only returns true under certain conditions.Listing 6 shows an example.
+
+###### Listing 6: "force" property
+```html
+var dataHasChanged = true;
+[...]
+<DataProvider name="gridname" 
+              url="/api/url" 
+              dataProp="options"
+              force={
+                function callback(){ 
+                    return dataHasChanged; 
+                }
+              }
+>
+    <Kombi [...]>
+    [...]
+    </Kombi>
+</DataProvider>
+```
+
+##### 3.6 The "onlyLoaded" property
+
+This property is used to hide the children of the dataprovider as long as the data is not loaded.  Insteadit will show the "Loading" class.  The "isLoading" property is a internal property that is used with this."isLoading" should not be set from the outside.Listing 7 shows an example.
+
+###### Listing 7: "onlyLoaded" property
+```html
+<DataProvider 
+    name="task" 
+    url={apiEndpoints.task + ’/’ +id}
+    force={true}
+    dataProp="initialValues"
+    onlyLoaded={true}
+>
+    <WrapperContainer formmode="edit"/>
+</DataProvider>;
+```
+
+**Kind**: global class  

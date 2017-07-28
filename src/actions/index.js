@@ -5,6 +5,9 @@
 /**
  * @module
  */
+/**
+ * @overview The functions described in this section all take only one object as parameter. The parameters described in the following are the keys of this object.
+ */
 
 import request from 'superagent'
 import findInObject from 'find-in-object'
@@ -332,6 +335,7 @@ const executeDelete = ({url}) => () => {
  * Sends a direct delete request to an endpoint
  * @param url {string} the url to send the delete to
  * @param refresh {string} the name of the part of the store that should be refreshed afterwards
+ * @return {Promise}
  */
 export const directDelete = ({url, refresh = null}) => dispatch =>
     dispatch(executeDelete({url}))
@@ -343,6 +347,7 @@ export const directDelete = ({url, refresh = null}) => dispatch =>
  * @param url {string} the url to send the delete request
  * @param refresh {string} the name of the part of the store that should be refreshed afterwards
  * @param message {string} The message to be shown in the alert, defaults to 'Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?'
+ * @return {Promise}
  */
 export const confirmAndDelete =
     ({url, refresh = null, message = 'Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?'}) =>
