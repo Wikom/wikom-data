@@ -39,47 +39,50 @@ class DataProvider extends Component {
             ? <span>{this.props.loading}</span>
             : <span>{this.props.children}</span>
     }
-
 }
 
-const mapChildren = function (Child, state, dataProp, isLoadingProp, name, dataMap, rest) {
-    let storeData = state.data && state.data[name] || null;
-    let data = Child.props.hasOwnProperty(dataProp) ? Child.props[dataProp] : false;
-    const overwrite = Child.props.hasOwnProperty('overwriteInitial') && Child.props.overwriteInitial;
-    if (data) {
-        switch (typeof  data) {
-            case "object":
-                if (!Array.isArray(data)) {
-                    if (!Array.isArray(storeData)) {
-                        if (overwrite) {
-                            data = {...data, ...storeData}
-                        } else {
-                            data = {...storeData, ...data};
-                        }
-                    } else {
-                        if (overwrite) {
-                            data = storeData;
-                        }
-                    }
-                } else {
-                    if (Array.isArray(data) && Array.isArray(storeData)) {
-                        data = data.concat(storeData);
-                    }
-                }
-                break;
-            default:
-                if (overwrite) {
-                    data = storeData;
-                }
-                break;
-        }
-    } else {
-        data = storeData;
+/**
+ * accepts assoc objects and arrays, returns type of data
+ * @param data
+ * @param prependData
+ * @param appendData
+ */
+const mergeData = (data, prependData = null, appendData = null) => {
+    if (typeof data != "object" || typeof prependData != "object" || typeof appendData != "object")
+        return data;
+
+    if (Array.isArray(data)){
+        prependData = Array.isArray(prependData) ? prependData: [];
+        appendData = Array.isArray(appendData) ? appendData: [];
+
+        return prependData.concat(data, appendData);
     }
 
-    if (typeof dataMap === 'function' && typeof data === 'object' && data instanceof Array) {
-        data = data.map(dataMap);
-    }
+    return Object.assign({}, prependData, data, appendData);
+};
+
+
+/**
+ *
+ * @param Child
+ * @param state
+ * @param dataProp
+ * @param isLoadingProp
+ * @param name
+ * @param dataMap
+ * @param prependData
+ * @param appendData
+ * @param rest
+ * @return {*}
+ */
+const mapChildren = function (Child, state, dataProp, isLoadingProp, name, dataMap, prependData, appendData, rest) {
+    let storeData = state.data && state.data[name] || [];
+
+    let data = (typeof dataMap == 'function' && storeData instanceof Array) ?
+        storeData.map(dataMap) :
+        storeData;
+
+    data = mergeData(data, prependData, appendData);
 
     return React.cloneElement(Child, {
         [isLoadingProp]: !state.queries[name] || state.queries[name].isPending === true,
@@ -87,13 +90,13 @@ const mapChildren = function (Child, state, dataProp, isLoadingProp, name, dataM
         pagination: state.data && state.data.pagination && state.data.pagination[name] || null,
         ...rest
     });
-}
+};
 
-const mapStateToProps = (state, {children, name, url, force, dataProp, isLoadingProp, refresh, dataMap, ...rest}) => ({
+const mapStateToProps = (state, {children, name, url, force, dataProp, isLoadingProp, refresh, dataMap, prependData, appendData, ...rest}) => ({
     isLoading: !state.queries[name] || state.queries[name].isPending === true,
     refresh: refresh || (state.queries[name] && state.queries[name].isQueued === true),
     force: force || !state.queries[name] || state.queries[name].isComplete === false,
-    children: React.Children.map(children, Child => mapChildren(Child, state, dataProp, isLoadingProp, name, dataMap, rest))
+    children: React.Children.map(children, Child => mapChildren(Child, state, dataProp, isLoadingProp, name, dataMap, prependData, appendData, rest))
 });
 
 const mapDispatchToProps = dispatch => ({
