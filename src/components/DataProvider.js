@@ -51,9 +51,9 @@ const mergeData = (data, prependData = null, appendData = null) => {
     if (typeof data != "object" || typeof prependData != "object" || typeof appendData != "object")
         return data;
 
-    if (Array.isArray(data)){
-        prependData = Array.isArray(prependData) ? prependData: [];
-        appendData = Array.isArray(appendData) ? appendData: [];
+    if (Array.isArray(data)) {
+        prependData = Array.isArray(prependData) ? prependData : [];
+        appendData = Array.isArray(appendData) ? appendData : [];
 
         return prependData.concat(data, appendData);
     }
@@ -76,17 +76,17 @@ const mergeData = (data, prependData = null, appendData = null) => {
  * @return {*}
  */
 const mapChildren = function (Child, state, dataProp, isLoadingProp, name, dataMap, prependData, appendData, rest) {
-    let storeData = state.data && state.data[name] || [];
+    const storeData = state.data && state.data[name] || [];
+    const isLoading = !state.queries[name] || state.queries[name].isPending === true;
 
     let data = (typeof dataMap == 'function' && storeData instanceof Array) ?
         storeData.map(dataMap) :
         storeData;
-
     data = mergeData(data, prependData, appendData);
 
     return React.cloneElement(Child, {
-        [isLoadingProp]: !state.queries[name] || state.queries[name].isPending === true,
-        [dataProp]: data,
+        [isLoadingProp]: isLoading,
+        [dataProp]: isLoading ? null : data,
         pagination: state.data && state.data.pagination && state.data.pagination[name] || null,
         ...rest
     });
