@@ -2,8 +2,20 @@
  * Created by rouven on 15.03.17.
  */
 
+/**
+ * @module
+ */
+/**
+ * @author rouven
+ */
+
 import * as types from '../actions/actionTypes'
 
+/**
+ * Returns the initial request state for the passed url
+ * @private
+ * @param url {string} the url for the request
+ */
 const initialRequestState = (url) => ({
     url,
     isQueued: false,
@@ -12,6 +24,14 @@ const initialRequestState = (url) => ({
     percent: 0
 });
 
+/**
+ * Handles  pending  data  requests  and  cancelation  of  such.   Also  handles  REFRESH_DATA,  CLEAR_DATA and LOAD_DATA_PROGRESS actions.
+ * Sets internal properties of the state, that are used to determine thestate of the request (e.g.  isPending or percent).
+ * @public
+ * @param state {object} the current state
+ * @param action {object} the dispatched action
+ * @returns {object} the next state
+ */
 const queriesReducer = (state = {}, action) => {
     switch (action.type) {
         case types.LOAD_DATA_PENDING: {
