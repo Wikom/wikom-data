@@ -1,5 +1,8 @@
 # wikom-data
 
+[![Build Status](https://travis-ci.org/Wikom/wikom-data.svg?branch=travis_setup_WAPUS-1291)](https://travis-ci.org/Wikom/wikom-data)
+[![Coverage Status](https://coveralls.io/repos/github/Wikom/wikom-data/badge.svg)](https://coveralls.io/github/Wikom/wikom-data)
+
 # 1. Introduction
 
 ## 1.1 What is wikom-data?

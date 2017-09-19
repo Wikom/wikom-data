@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+- node
+script: yarn test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+notifications:
+  slack:
+    rooms:
+      secure: T3SY42AraSacQy2Xh6yHe8IYcmnF2kjBMkslbQQBOKb4KKJhFsLliierXIJurQZi4CKyk+X6Xc2KdHSorgTV3HS+Ku7JU42p5V7Dv+dBZj9GxWSDiq+ORM1baXVWqMcO+RKbFGZeZFc4/+zUcY0CEJUneGj+xEkEH0zlcEiZ7IOeDw0nurtL9bW4piztyAHKhrYStETaioMxjIkKMFN5eTDVFuUDLNjE2bO/JRlNJVhOcm57isxlco/lr/hPlKPBGYaM73LJw/dQgGLyt9ucgzTZqI/tckJK8Xk5opz5jf8lCLVD0PfuHL2r5F1fejLvkCIv9uQIRPS6P2v9+2PTomcNm9mlNeShlym7Jc8oYjcDLCt0+YvxpsCs/DTVVQdNAEUD0+FjnMy7L2/ssbXlSKKtkeNud1mCu8KdkqRc6eEutZfR711wYqEnbcV03NEhvGdhzSwf+FtFBp6KxqpVW0UM2RdTMk1oSa1tOYgMtjAhNqozczW+gL66RHisi4PAcAD+nCsMqXy9TZcrO/O58rHPSt/Yybb69RvMleBUxxYPFyAuSCsjfCpRumbT43PIaOhETbRJ2RDdEB2+H/P2bLpKCzV7mqVGVEH3wbhvIcC9DpADde0Lwm/Mc7ejoM3VMVrtNbMIEvs9920NJIkLoKXpAM4fKYhXElNfUPKZwig=
