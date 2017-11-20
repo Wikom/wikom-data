@@ -213,7 +213,7 @@ export const loadData = ({name, url}) => (dispatch, getState) => {
         .then(response => {
 
             promise.cancel = () => {
-                console.log('promise resolved - cancel disabled...')
+                // console.log('promise resolved - cancel disabled...')
             };
 
             if (response.ok && response.body) {
@@ -229,7 +229,7 @@ export const loadData = ({name, url}) => (dispatch, getState) => {
                     dispatch(setPagination({name, data: pagination}));
                 }
             }
-        }).catch(error => {
+        }, error => {
             dispatch(loadDataFailure({name, url, error}));
             dispatch(clearPagination({name}));
         });
@@ -241,6 +241,7 @@ export const loadData = ({name, url}) => (dispatch, getState) => {
 
     return promise;
 };
+
 /**
  * Action to start a file download with progress information
  * @param name {string} the name of the request
@@ -280,7 +281,7 @@ export const download = ({name, url}) => dispatch => {
         .then(response => {
 
             promise.cancel = () => {
-                console.log('promise resolved - cancel disabled...')
+                // console.log('promise resolved - cancel disabled...')
             };
 
             if (response.ok && response.body) {
@@ -289,7 +290,7 @@ export const download = ({name, url}) => dispatch => {
                 saveAs(response.body, filename);
                 dispatch(loadDataSuccess({name, url, data: null}));
             }
-        }).catch(error => {
+        }, error => {
             dispatch(loadDataFailure({name, url, error}));
         });
 

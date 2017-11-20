@@ -1,6 +1,6 @@
 {
   "name": "wikom-data",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "main": "lib/index.js",
   "module": "src/index.js",
   "repository": "git@github.com:Wikom/wikom-data.git",
