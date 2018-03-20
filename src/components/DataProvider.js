@@ -124,7 +124,7 @@ DataProviderContainer.defaultProps = {
 DataProviderContainer.propTypes = {
     name: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     dataProp: PropTypes.string,
     isLoadingProp: PropTypes.string,
     force: PropTypes.bool,
