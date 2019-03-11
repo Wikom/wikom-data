@@ -328,7 +328,17 @@ export const submit = ({url, data = {}, primaryKey = 'id'}) => () => {
  * @return {Promise}
  */
 export const upload = ({url, data = {}, primaryKey = 'id'}) => () => {
-    const req = request('POST', url).set(requestHeaders).set('Content-Type', 'multipart/form-data').send(data);
+    const req = (data.hasOwnProperty(primaryKey))
+        ? baseRequest({method: 'PUT', url: url + '/' + findInObject(primaryKey, data), data})
+        : baseRequest({method: 'POST', url});
+
+    Object.keys(data).forEach(field => {
+        if (data[field] instanceof File) {
+            req.attach(field, data[field]);
+        } else {
+            req.field(field, data[field]);
+        }
+    });
 
     const promise = req;
 
