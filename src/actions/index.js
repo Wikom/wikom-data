@@ -9,10 +9,11 @@
  * @overview The functions described in this section all take only one object as parameter. The parameters described in the following are the keys of this object.
  */
 
-import request from 'superagent'
-import findInObject from 'find-in-object'
-import {saveAs} from 'file-saver'
-import * as types from './actionTypes'
+import request from 'superagent';
+import findInObject from 'find-in-object';
+import {saveAs} from 'file-saver';
+import * as types from './actionTypes';
+
 /**
  * Action to dispatch if the app user should change
  * @param user {object} the new user
@@ -312,6 +313,32 @@ export const submit = ({url, data = {}, primaryKey = 'id'}) => () => {
     const req = (data.hasOwnProperty(primaryKey))
         ? put({url: url + '/' + findInObject(primaryKey, data), data})
         : post({url, data});
+
+    const promise = req;
+
+    promise.cancel = () => req.abort();
+
+    return promise;
+};
+/**
+ * Action to upload data to an endpoint.
+ * @param url {string} the url to submit to
+ * @param data {object} the data to submit
+ * @param primaryKey {string} the primaryKey attributes name in the data, defaults to id
+ * @return {Promise}
+ */
+export const upload = ({url, data = {}, primaryKey = 'id'}) => () => {
+    const req = (data.hasOwnProperty(primaryKey))
+        ? baseRequest({method: 'PUT', url: url + '/' + findInObject(primaryKey, data), data})
+        : baseRequest({method: 'POST', url});
+
+    Object.keys(data).forEach(field => {
+        if (data[field] instanceof File) {
+            req.attach(field, data[field]);
+        } else {
+            req.field(field, data[field]);
+        }
+    });
 
     const promise = req;
 
