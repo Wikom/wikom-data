@@ -9,8 +9,8 @@
  * @author rouven
  */
 
-import {LOAD_DATA_FAILURE} from '../actions/actionTypes'
-import {LOCATION_CHANGE} from 'react-router-redux'
+import {LOAD_DATA_FAILURE} from '../actions/actionTypes';
+import {LOCATION_CHANGE} from 'react-router-redux';
 
 /**
  * Handles failure cases (LOAD_DATA_FAILURE and LOCATION_CHANGE).
@@ -22,21 +22,23 @@ import {LOCATION_CHANGE} from 'react-router-redux'
  * @returns {array | object} The new state after performing the action
  */
 const errorReducer = (state = [], action) => {
-
     switch (action.type) {
         case LOAD_DATA_FAILURE:
             const error = {
                 status: 0,
                 name: 'Unbekannter Fehler',
-                message: 'Es ist ein unbekannter Fehler aufgetreten.'
+                message: 'Es ist ein unbekannter Fehler aufgetreten.',
+                code: 0
             };
-
             if (typeof action.error === 'object') {
                 error.status = action.error.status;
 
                 if (typeof action.error.response === 'object' && typeof action.error.response.body === 'object') {
                     error.name = action.error.response.body.name;
                     error.message = action.error.response.body.message;
+                    if (action.error.response.body.hasOwnProperty('code')) {
+                        error.code = action.error.response.body.code;
+                    }
                 }
             }
 
