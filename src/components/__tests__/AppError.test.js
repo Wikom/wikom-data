@@ -26,7 +26,7 @@ describe('components', () => {
             const text = enzymeWrapper.find('li');
             expect(title.length).toBe(0);
             expect(text.length).toBe(0);
-            expect(enzymeWrapper.html()).toBe(null);
+            expect(enzymeWrapper.isEmptyRender()).toBe(true);
         });
         it('should render a single Error with correct message, error codde and titel', () => {
             const {enzymeWrapper} = setup({
