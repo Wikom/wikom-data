@@ -26,8 +26,8 @@ const errorReducer = (state = [], action) => {
         case LOAD_DATA_FAILURE:
             const error = {
                 status: 0,
-                name: 'Unbekannter Fehler',
-                message: 'Es ist ein unbekannter Fehler aufgetreten.',
+                name: 'Verbindung zum Server unterbrochen',
+                message: 'Es liegt ein Problem bei der Verbindung mit dem Server vor. Eventuell ist der Server zeitweise nicht erreichbar. Bitte prüfen Sie auch Ihre Internetverbindung.',
                 code: 0
             };
             if (typeof action.error === 'object') {
