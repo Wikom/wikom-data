@@ -21,11 +21,6 @@ or with npm:
 npm install --save git+https://github.com/Wikom/wikom-data.git
 ```
 
-You can also add the standalone build directly to your page. Download dist/index.js and add it to your html-page:
-
-```html
-<script src="path-to-your-downloaded-js-file"></script>
-```
 
 Remember to include all dependencies as well.
 # 2 Basic usage
