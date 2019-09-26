@@ -231,8 +231,10 @@ export const loadData = ({name, url}) => (dispatch, getState) => {
                 }
             }
         }, error => {
-            dispatch(loadDataFailure({name, url, error}));
-            dispatch(clearPagination({name}));
+            if (error.code !== 'ABORTED') {
+                dispatch(loadDataFailure({name, url, error}));
+                dispatch(clearPagination({name}));
+            }
         });
 
     promise.cancel = () => {
@@ -292,7 +294,9 @@ export const download = ({name, url}) => dispatch => {
                 dispatch(loadDataSuccess({name, url, data: null}));
             }
         }, error => {
-            dispatch(loadDataFailure({name, url, error}));
+            if (error.code !== 'ABORTED') {
+                dispatch(loadDataFailure({name, url, error}));
+            }
         });
 
     promise.cancel = () => {
