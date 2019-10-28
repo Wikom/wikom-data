@@ -12,20 +12,24 @@ As  the  name  suggests,  wikom-data  is  a  library  that  is  all  about  load
 Add wikom-data to your js project with yarn:
 
 ```javascript
-yarn add git+https://github.com/Wikom/wikom-data.git
+yarn add @wikom/wikom-data
 ```
 
 or with npm:
 
 ```javascript
-npm install --save git+https://github.com/Wikom/wikom-data.git
+npm install --save @wikom/wikom-data
 ```
 
 
 Remember to include all dependencies as well.
 # 2 Basic usage
 
-To  load  data  into  a  grid  you  only  need  to  nest  the  grid  within  a  DataProvider  tag  and  set  the  neededproperties of the Dataprovider.  You need to set the url and also you need to name the dataprovider, butyou can just give it the same name as the grid itself.  The url obviously tells the DataProvider where to getthe data from, while the name tells it where to store the data in the store.  You might also want to look atthe ConnectedGrid class provided in wikom-grid for this use case.  See Listing 1 for a basic example.
+To  load  data  into  a  grid  you  only  need  to  nest  the  grid  within  a  DataProvider  tag  and  set  the  needed
+properties of the Dataprovider.  You need to set the url and also you need to name the dataprovider, but
+you can just give it the same name as the grid itself.  The url obviously tells the DataProvider where to get
+the data from, while the name tells it where to store the data in the store.  You might also want to look at
+the ConnectedGrid class provided in wikom-grid for this use case.  See Listing 1 for a basic example.
 ##### Listing 1: Basic DataProvider and Grid usage
 ```html
 <DataProvider name="gridname" url="/api/url">

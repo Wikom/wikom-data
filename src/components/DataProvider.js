@@ -5,7 +5,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import Loading from 'react-loading'
+import Loading from '@wikom/react-loading'
 
 import {loadData, clearData} from '../actions'
 

@@ -1,20 +1,23 @@
 {
-  "name": "wikom-data",
-  "version": "1.8.1",
+  "name": "@wikom/wikom-data",
+  "version": "1.9.0",
   "main": "lib/index.js",
   "module": "lib/index.js",
-  "repository": "git@github.com:Wikom/wikom-data.git",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Wikom/wikom-data.git"
+  },
   "author": "Rouven Diener",
   "license": "MIT",
   "files": [
-    "lib",
-    "src"
+    "docs",
+    "lib"
   ],
   "dependencies": {
+    "@wikom/find-in-object": "^1.3.3",
+    "@wikom/react-loading": "^1.3.0",
+    "@wikom/react-symbol": "^1.3.1",
     "file-saver": "^2.0.2",
-    "find-in-object": "https://github.com/Wikom/find-in-object.git#v1.2.0",
-    "react-loading": "https://github.com/Wikom/react-loading.git#v1.2.0",
-    "react-symbol": "https://github.com/Wikom/react-symbol.git#v1.2.0",
     "superagent": "^5.1.0"
   },
   "devDependencies": {
@@ -75,5 +78,14 @@
     "moduleNameMapper": {
       "^.+\\.(css|scss|less)$": "<rootDir>/_config/mockcss.js"
     }
+  },
+  "description": "",
+  "bugs": {
+    "url": "https://github.com/Wikom/wikom-data/issues"
+  },
+  "homepage": "https://github.com/Wikom/wikom-data#readme",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
   }
 }
