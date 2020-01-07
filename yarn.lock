@@ -951,6 +951,33 @@
   dependencies:
     "@types/yargs-parser" "*"
 
+"@wikom/find-in-object@^1.3.3":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@wikom/find-in-object/-/find-in-object-1.3.3.tgz#575faefa958fc92feca2de808cebbabb6712cb1e"
+  integrity sha512-d0Od7xeSVlinWbUUsmvJCBiUNEbXasnbNUv2yU+jP6Ow7Ihg14kLX4UQ6UJoqJqV0EYO4D9J/HlFwG1a13TJCw==
+
+"@wikom/react-loading@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@wikom/react-loading/-/react-loading-1.3.0.tgz#a50c6a9d0e3eca79c7939361d2fd6023f61e6ab2"
+  integrity sha512-uxYUFpSs4pdcG5qZI163wSxw57aweVLOdRBG98rz9NAR1afdPMpdPKEiN55RHdajOfWDmx1+cM6xkbPEEwXngQ==
+  dependencies:
+    "@wikom/react-symbol" "^1.3.1"
+
+"@wikom/react-symbol@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@wikom/react-symbol/-/react-symbol-1.3.1.tgz#4005b507d449f1f0926031495c7b23f4456eae95"
+  integrity sha512-4YnPdg17sk4RNRMYlJUuoukkYVVpdvVUqFQC0zHj4e7HWpFIRkOOs/tP7+Y0wFg0RJGRTOu3CFqOmI7SI3pLZg==
+  dependencies:
+    "@wikom/with-tooltip" "^1.4.0"
+
+"@wikom/with-tooltip@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@wikom/with-tooltip/-/with-tooltip-1.4.0.tgz#fba4c18974c6ada500723a6d2141474cd82c16af"
+  integrity sha512-FFAjiEuXFThrBzeltTzbQBjMP4Zkk8RpaplFYcNVGFbjREduuzJF9EUpTEvk81H+UJV1vRRuhct3X38gVWOSLQ==
+  dependencies:
+    react-tooltip "^3.11.1"
+    uuid "^3.3.3"
+
 abab@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.1.tgz#3fa17797032b71410ec372e11668f4b4ffc86a82"
@@ -2179,10 +2206,6 @@ fill-range@^4.0.0:
     is-number "^3.0.0"
     repeat-string "^1.6.1"
     to-regex-range "^2.1.0"
-
-"find-in-object@https://github.com/Wikom/find-in-object.git#v1.2.0":
-  version "1.2.0"
-  resolved "https://github.com/Wikom/find-in-object.git#8707fedb4837164c1343907e81a740a29b6f4c90"
 
 find-replace@^3.0.0:
   version "3.0.0"
@@ -4292,12 +4315,6 @@ react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6, react-is
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.9.0.tgz#21ca9561399aad0ff1a7701c01683e8ca981edcb"
   integrity sha512-tJBzzzIgnnRfEm046qRcURvwQnZVXmuCbscxUO5RWrGTXpon2d4c8mI0D8WE6ydVIm29JiLB6+RslkIvym9Rjw==
 
-"react-loading@https://github.com/Wikom/react-loading.git#v1.2.0":
-  version "1.2.0"
-  resolved "https://github.com/Wikom/react-loading.git#5eb67f4ddf99a10b8ca8afde2a7f482535a78274"
-  dependencies:
-    react-symbol "https://github.com/Wikom/react-symbol.git#v1.2.0"
-
 react-redux@^7.1.1:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.1.1.tgz#ce6eee1b734a7a76e0788b3309bf78ff6b34fa0a"
@@ -4309,12 +4326,6 @@ react-redux@^7.1.1:
     loose-envify "^1.4.0"
     prop-types "^15.7.2"
     react-is "^16.9.0"
-
-"react-symbol@https://github.com/Wikom/react-symbol.git#v1.2.0":
-  version "1.2.0"
-  resolved "https://github.com/Wikom/react-symbol.git#772aa55621ebf64c21b0f51a7044fcd1699e1cc3"
-  dependencies:
-    with-tooltip "https://github.com/Wikom/with-tooltip.git#v1.3.0"
 
 react-test-renderer@^16.0.0-0, react-test-renderer@^16.9.0:
   version "16.9.0"
@@ -5422,13 +5433,6 @@ wide-align@^1.1.0:
   integrity sha512-QGkOQc8XL6Bt5PwnsExKBPuMKBxnGxWWW3fU55Xt4feHozMUhdUMaBCk290qpm/wG5u/RSKzwdAC4i51YigihA==
   dependencies:
     string-width "^1.0.2 || 2"
-
-"with-tooltip@https://github.com/Wikom/with-tooltip.git#v1.3.0":
-  version "1.3.0"
-  resolved "https://github.com/Wikom/with-tooltip.git#dd03b8924a80c9e7c206ca31363f78d59ea487f9"
-  dependencies:
-    react-tooltip "^3.11.1"
-    uuid "^3.3.3"
 
 wordwrap@~0.0.2:
   version "0.0.3"

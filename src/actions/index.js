@@ -10,7 +10,7 @@
  */
 
 import request from 'superagent';
-import findInObject from 'find-in-object';
+import findInObject from '@wikom/find-in-object';
 import {saveAs} from 'file-saver';
 import * as types from './actionTypes';
 

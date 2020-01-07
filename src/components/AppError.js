@@ -9,7 +9,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
-import Symbol from 'react-symbol'
+import Symbol from '@wikom/react-symbol'
 
 
 const SingleError = ({error}) =>

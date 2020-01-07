@@ -1,7 +1,21 @@
+if: "(type IN (pull_request, cron, api)) OR (tag IS present)"
 language: node_js
 node_js:
-- "11.10.1"
+- stable
+install:
+- yarn
 script: yarn test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+before_deploy:
+- yarn start
+deploy:
+  provider: npm
+  email: r.diener@wikom.de
+  skip_cleanup: true
+  api_key:
+    secure: DPWpRgfFE+rX9w3H80EI4aFvE/Ndj56DYXZ9f7Vw89dN7GuHf3STs0gLItC9MfKIfMyNNL0EifuUMwIjDbrYJY24PMGU1N8TmeQYJKOYztesQd2g8OTjUTIsRw5g/jF93mGlpMhjqzXNFScRMy3VsLTJl2RKlRNZT6oC4lvYQ8MXQVJp4lK+WYFV/POV/NNopPcUpbEx3K2Pde7afWE/L9qid+JsyjD/HLxHNQ6XsFT/fyyQedcApn0SwAi8KH1NAuk1mVaplFcDmyq1Tri5m18R2RX/bBYDgxjgQgOSbSDNhpyQ8W68tCfudIhZ93QiK5I/4NKMmvCK9ula0lNGFDlQmENxA6kwFGbtdZq+oIGWhMkLezQR4BLBgAtRl/XG6xHH8u6tERULk2JSulnFxs7dTuu5s4iKk4h/TqyCiBrT4YXaR6ZNw5eXrnB6vtMVBOfxWi4mZqivYuiEhiCk84RzY/iP65eckxRRU4KDIEql6cgfWhhGrEAAlSx24soW4Hpbd6Pk1QsWxuSNNpfzuFU6RX+sWaJmAYweuUHCpfnag/RNTUZblU3pw30bnrw+FnBqdQLPHMsgg56YIbADOI9Bch7gJJTcVxryiaXZfemrmbNiiryFOlve8uBOGHqWU5LYKJob+likcKpQF1VAs0Bu6yKPcoC+zlTrRcBaxaI=
+  on:
+    tags: true
+    all_branches: true
 notifications:
   slack:
     rooms:
