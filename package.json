@@ -1,6 +1,6 @@
 {
   "name": "@wikom/wikom-data",
-  "version": "1.9.3",
+  "version": "1.9.4",
   "main": "lib/index.js",
   "module": "lib/index.js",
   "repository": {
@@ -31,8 +31,6 @@
     "enzyme-adapter-react-16": "^1.14.0",
     "jest-cli": "^25.1.0",
     "jest-css-modules": "^2.1.0",
-    "jsdoc": "^3.6.3",
-    "jsdoc-to-markdown": "^5.0.1",
     "nock": "^12.0.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -87,5 +85,8 @@
   "directories": {
     "doc": "docs",
     "lib": "lib"
+  },
+  "resolutions": {
+    "**/mkdirp/minimist": "0.2.1"
   }
 }
