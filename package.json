@@ -1,6 +1,6 @@
 {
   "name": "@wikom/wikom-data",
-  "version": "1.9.4",
+  "version": "1.9.5",
   "main": "lib/index.js",
   "module": "lib/index.js",
   "repository": {
@@ -85,8 +85,5 @@
   "directories": {
     "doc": "docs",
     "lib": "lib"
-  },
-  "resolutions": {
-    "**/mkdirp/minimist": "0.2.1"
   }
 }
