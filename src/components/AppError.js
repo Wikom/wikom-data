@@ -31,7 +31,7 @@ const scrollTo = (ref) => {
 
 const ErrorContainer = ({children}) => {
     const selfRef = useRef(null);
-    useEffect(() => scrollTo(selfRef), []);
+    useEffect(() => scrollTo(selfRef));
     return (
         <div ref={selfRef}>
             {children}
