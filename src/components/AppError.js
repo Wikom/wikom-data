@@ -5,12 +5,11 @@
  * @class AppError
  * @classdesc  This is the main component for the graphical errors shown as soon as a javascript error occurs.
  */
-import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import React, {useRef, useEffect} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
-import Symbol from '@wikom/react-symbol'
-
+import Symbol from '@wikom/react-symbol';
 
 const SingleError = ({error}) =>
     <div className="alert alert-danger" id="page-alert-danger" role="alert">
@@ -26,14 +25,32 @@ const SingleError = ({error}) =>
         </ul>
     </div>;
 
+const scrollTo = (ref) => {
+    window.scrollTo(0, ref.current.offsetTop);
+};
+
+const ErrorContainer = ({children}) => {
+    const selfRef = useRef(null);
+    useEffect(() => scrollTo(selfRef), []);
+    return (
+        <div ref={selfRef}>
+            {children}
+        </div>
+    );
+};
 /**
  * Constructs an AppError UI widget, that shows errors stored in the store.
  * @param errors {array} the errors to be displayed
  * @constructor
  */
-const AppError = ({errors}) => errors.length > 0
-    ? <div>{errors.map((error, i) => <SingleError key={i} error={error}/>)}</div>
-    : null;
+const AppError = ({errors}) => {
+    if (errors.length > 0) {
+        return (
+            <ErrorContainer>{errors.map((error, i) => <SingleError key={i} error={error}/>)}</ErrorContainer>
+        );
+    }
+    return null;
+};
 
 AppError.defaultProps = {
     errors: []
