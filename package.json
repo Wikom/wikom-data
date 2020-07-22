@@ -1,6 +1,6 @@
 {
   "name": "@wikom/wikom-data",
-  "version": "1.9.6",
+  "version": "1.9.7",
   "main": "lib/index.js",
   "module": "lib/index.js",
   "repository": {
